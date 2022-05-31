@@ -1,4 +1,5 @@
 plugins {
+    id("com.jaredsburrows.license") version "0.9.0"
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
 }
@@ -54,9 +55,21 @@ dependencies {
     shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-windows-x86'
 }
 
+licenseReport {
+    generateCsvReport = false
+    generateHtmlReport = true
+    generateJsonReport = false
+    generateTextReport = true
+
+    copyHtmlReportToAssets = true
+}
 
 jar {
     manifest {
         attributes 'Main-Class': 'net.dark_roleplay.atlas_splitter.AtlasSplitter'
     }
+}
+
+shadowJar{
+    minimize()
 }
