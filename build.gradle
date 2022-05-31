@@ -1,0 +1,62 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+}
+
+project.ext.lwjglVersion = "3.3.1"
+project.ext.lwjglNatives = "natives-windows"
+
+group 'net.dark_roleplay.atlas_splitter'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations{
+    shadow
+}
+
+shadowJar {
+    archiveBaseName.set('AtlasSplitter')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+}
+
+dependencies {
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation 'org.json:json:20220320'
+
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-stb"
+
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+
+    shadow "org.json:json:20220320"
+
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-linux'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-linux-arm32'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-linux-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-macos'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-macos-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-windows'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-windows-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl', version: lwjglVersion, classifier: 'natives-windows-x86'
+
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-linux'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-linux-arm32'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-linux-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-macos'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-macos-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-windows'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-windows-arm64'
+    shadow group: 'org.lwjgl', name: 'lwjgl-stb', version: lwjglVersion, classifier: 'natives-windows-x86'
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'net.dark_roleplay.atlas_splitter.AtlasSplitter'
+    }
+}
